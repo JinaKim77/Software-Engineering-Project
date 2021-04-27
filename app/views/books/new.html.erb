@@ -1,0 +1,15 @@
+<h2>Create New Book</h2>
+
+<%= form_tag books_path, :class => 'form' do %>
+  <%= label :book, :title, 'Title', :class => 'col-form-label' %>
+  <%= text_field :book, :title, :class => 'form-control' %>
+  <%= label :book, :rating, 'Rating', :class => 'col-form-label'  %>
+  <%= select :book, :rating, ['1','2','3','4','5'], {}, {:class => 'form-control col-1'} %>
+  <%= label :book, :author, 'Director', :class => 'col-form-label' %>
+  <%= text_field :book, :author, :class => 'form-control' %>
+  <%= label :book, :publish_date, 'Published In', :class => 'col-form-label'  %>
+  <%= date_select :book, :publish_date, {}, :class => 'form-control col-2 d-inline' %>
+  <br/>
+  <%= submit_tag 'Save Changes', :class => 'btn btn-primary' %>
+  <%= link_to 'Cancel', books_path, :class => 'btn btn-secondary' %>
+<% end %>

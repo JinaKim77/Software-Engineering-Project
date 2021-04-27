@@ -1,0 +1,14 @@
+<h2>Edit Existing Book</h2>
+<%= form_tag book_path(@movie), :method => :put do %>
+  <%= label :book, :title, 'Title', :class => 'col-form-label' %>
+  <%= text_field :book, 'title', :class => 'form-control' %>
+  <%= label :movie, :rating, 'Rating', :class => 'col-form-label'  %>
+  <%= select :movie, :rating, ['1','2','3','4','5'], {}, {:class => 'form-control col-1'} %>
+  <%= label :movie, :director, 'Author', :class => 'col-form-label' %>
+  <%= text_field :book, 'author', :class => 'form-control' %>
+  <%= label :book, :publish_date, 'Released In', :class => 'col-form-label'  %>
+  <%= date_select :book, :publish_date, {}, :class => 'form-control col-2 d-inline' %>
+  <br/>
+  <%= submit_tag 'Update Book Info', :class => 'btn btn-primary' %>
+  <%= link_to 'Cancel', books_path, :class => 'btn btn-secondary' %>
+<% end %>
