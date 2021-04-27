@@ -1,42 +1,39 @@
-<!--  This file is app/views/movies/index.html.erb -->
-<h2>All Movies</h2>
+<p id="notice"><%= notice %></p>
 
-<%#  Part 2: Start here... %>
+<h1>Listing Books</h1>
 
-<table class="table table-striped col-md-12" id="movies">
+<table>
   <thead>
     <tr>
-      <th>Movie Title</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Categories</th>
+      <th>Language</th>
       <th>Rating</th>
-      <th>Director</th>
-      <th>Release Date</th>
-      <th>More Info</th>
-      <th>Find Movies With Same Director</th>
+      <th>Description</th>
+      <th>Publication date</th>
+      <th colspan="3"></th>
     </tr>
   </thead>
+
   <tbody>
     <% @books.each do |book| %>
       <tr>
-        <td>
-          <%= book.title %>
-        </td>
-        <td>
-          <%= book.rating %>
-        </td>
-        <td>
-          <%= book.author %>
-        </td>
-        <td>
-          <%= book.publish_date %>
-        </td>
-        <td>
-          <%= link_to "More about #{book.title}", book_path(book) %>
-        </td>
-        <td>
-           <%= link_to "Find Books With Same Author #{book.author}", book_path(book) %>
-        </td>
+        <td><%= book.title %></td>
+        <td><%= book.author %></td>
+        <td><%= book.categories %></td>
+        <td><%= book.language %></td>
+        <td><%= book.rating %></td>
+        <td><%= book.description %></td>
+        <td><%= book.publication_date %></td>
+        <td><%= link_to 'Show', book %></td>
+        <td><%= link_to 'Edit', edit_book_path(book) %></td>
+        <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Add new book', new_book_path, :class => 'btn btn-primary' %>
+
+<br>
+
+<%= link_to 'New Book', new_book_path %>

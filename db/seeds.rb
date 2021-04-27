@@ -5,3 +5,18 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+# Seed the RottenPotatoes DB with some movies.
+more_books = [
+  {:title => 'The Lantern Men', :rating => '4', :author =>'Elly Griffiths' , :categories =>'Mystery', :language =>'English',
+    :publication_date => '06-February-2020'},
+  {:title => 'Nomadland', :rating => '4', :author =>'Jessica Bruder', :categories =>'Social Sciences', :language =>'English',
+    :publication_date => '19-September-2017'},
+  {:title => 'Beyond', :rating => '5', :author =>'Stephen Walker', :categories =>'History', :language =>'English',
+    :publication_date => '13-April-2015'},
+  {:title => 'Sorrow and Bliss', :rating => '4', :author =>'Meg Mason', :categories =>'Fiction', :language =>'English',
+    :publication_date => '02-September-2020'}
+]
+
+more_books.each do |book|
+  Book.create!(book)
+end
