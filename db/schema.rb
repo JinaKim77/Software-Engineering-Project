@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20210427141512) do
     t.string   "categories"
     t.text     "description"
     t.text     "language"
-    t.datetime "publication_date"
+    t.datetime "publication_date" 
     t.datetime "created_at"
     t.datetime "updated_at"
   end
