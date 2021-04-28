@@ -34,7 +34,7 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0.3'
+#gem 'sass-rails', '~> 5.0.3'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
 # Use Uglifier as compressor for JavaScript assets
