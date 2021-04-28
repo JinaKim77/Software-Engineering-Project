@@ -4,9 +4,9 @@ RSpec.describe "books/edit", type: :view do
   before(:each) do
     @book = assign(:book, Book.create!(
       :title => "MyString",
+      :author => "MyString",
       :rating => "MyString",
-      :categories => "MyString",
-      :language => "MyString",
+      :Categories => "MyString",
       :description => "MyString",
       :publication_date => "MyString"
     ))
@@ -19,11 +19,11 @@ RSpec.describe "books/edit", type: :view do
 
       assert_select "input#book_title[name=?]", "book[title]"
 
+      assert_select "input#book_author[name=?]", "book[author]"
+
       assert_select "input#book_rating[name=?]", "book[rating]"
 
-      assert_select "input#book_categories[name=?]", "book[categories]"
-
-      assert_select "input#book_language[name=?]", "book[language]"
+      assert_select "input#book_Categories[name=?]", "book[Categories]"
 
       assert_select "input#book_description[name=?]", "book[description]"
 
