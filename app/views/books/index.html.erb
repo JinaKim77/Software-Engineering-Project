@@ -3,16 +3,37 @@
 
 <h1>READING CHALLENGE</h1>
 
-<table class="styled-table center">
+<h2>All Books</h2>
+
+<%= form_tag books_path, method: :get, id: 'ratings_form' do %>
+  Include:
+  <% @all_ratings.each do |rating| %>
+    <div class="form-check  form-check-inline">
+      <%= label_tag "ratings[#{rating}]", rating, class: 'form-check-label' %>
+      <%= check_box_tag "ratings[#{rating}]", "1",  @ratings_to_show.include?(rating), class: 'form-check-input' %>
+    </div>
+  <% end %>
+  <%= submit_tag 'Refresh', id: 'ratings_submit', class: 'btn btn-primary' %>
+<% end %>
+<table class="styled-table center" id="movies">
   <thead>
     <tr>
-      <th>Title</th>
+      <th>
+        <%= link_to "Book Title", books_path(:sort=>'title', :ratings=>@ratings), :class=>@title_header, :id=>'title_header' %>
+      </th>
       <th>Author</th>
       <th>Rating</th>
       <th>Categories</th>
       <th>Description</th>
-      <th>Publication date</th>
-      <th colspan="3"></th>
+      <th>
+        <%= link_to "Publication date" , books_path(:sort=>'publication_date',:ratings=>@ratings), :class=>@publication_header, :id =>'publication_date_header' %>
+      </th>
+      <th>More Info</th>
+      <th>Find Books With Same Author</th>
+      <th>Show</th>
+      <th>Edit</th>
+      <th>Destroy</th>
+      <th colspan="5"></th>
     </tr>
   </thead>
 
@@ -24,7 +45,13 @@
         <td><%= book.rating %></td>
         <td><%= book.Categories %></td>
         <td><%= book.description %></td>
-        <td><%= book.publication_date %></td>
+        <td><%= book.publication_date.strftime("%B %d, %Y")  %></td>
+        <td>
+          <%= link_to "More about #{book.title}", book_path(book) %>
+        </td>
+        <td>
+           <%= link_to "Find Books With Same Author #{book.author}", book_path(book) %>
+        </td>
         <td><%= link_to 'Show', book %></td>
         <td><%= link_to 'Edit', edit_book_path(book) %></td>
         <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -35,4 +62,4 @@
 
 <br>
 
-<%= link_to 'New Book', new_book_path %>
+<%= link_to 'New Book', new_book_path , :class => 'btn btn-primary'%>
