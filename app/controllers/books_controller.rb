@@ -1,38 +1,28 @@
 class BooksController < ApplicationController
-  #before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   # GET /books
   def index
-    @sort = params[:sort] || session[:sort]
-    @books = Book.order(params[:sort]).all
-    @all_ratings = Book.order(:rating).select(:rating).map(&:rating).uniq
-    @ratings = params[:ratings]  || session[:ratings]
-    @ratings_to_show = Book.ratings_to_show
-    @with_ratings = Book.with_ratings(@ratings_to_show)
-    @ratings_to_show = checkbox
-    @ratings_to_show.each do |rating|
-      params[rating] = true
+    sort = params[:sort] || session[:sort]
+    case sort
+    when 'title'
+      ordering,@title_header = {:title => :asc}, 'bg-warning hilite'
+    when 'publication_date'
+      ordering,@date_header = {:publication_date => :asc}, 'bg-warning hilite'
     end
-    
-    if params[:sort]
-      @books = Book.order(params[:sort])
-    else
-      @books = Book.where(:rating => @ratings_to_show)
-      session[:sort], session[:ratings] = @sort, @ratings
+    @all_ratings = Book.all_ratings
+    @selected_ratings = params[:ratings] || session[:ratings] || {}
+
+    if @selected_ratings == {}
+      @selected_ratings = Hash[@all_ratings.map {|rating| [rating, rating]}]
     end
-    
+
     if params[:sort] != session[:sort] or params[:ratings] != session[:ratings]
-      flash.keep
-      redirect_to books_path sort: @sort, ratings: @ratings
-      session[:sort], session[:ratings] = @sort, @ratings
+      session[:sort] = sort
+      session[:ratings] = @selected_ratings
+      redirect_to :sort => sort, :ratings => @selected_ratings and return
     end
-    
-    if params[:sort] == 'title'
-      @title_header = 'hilite'
-    end
-    if params[:sort] == 'publication_date'
-      @publication_header = 'hilite'
-    end
+    @books = Book.where(rating: @selected_ratings.keys).order(ordering)
   end
 
   # GET /books/1
@@ -43,7 +33,7 @@ class BooksController < ApplicationController
 
   # GET /books/new
   def new
-    @book = Book.new
+   @book = Book.new
   end
 
   # GET /books/1/edit
@@ -92,11 +82,4 @@ class BooksController < ApplicationController
       params.require(:book).permit(:title, :author, :rating, :Categories, :description, :publication_date)
     end
     
-   def checkbox
-    if params[:ratings]
-      params[:ratings].keys
-    else
-      @all_ratings
-    end
-  end
 end
