@@ -144,7 +144,7 @@ RSpec.describe BooksController, type: :controller do
       it "should find books with the same author" do
         ## YOUR TEST CODE HERE
         @book_id="1"
-        @movie=double('Beyond', :director =>'Stephen Walker')
+        @book=double('Beyond', :director =>'Stephen Walker')
         expect(Book).to receive(:find).and_return(@book)
         expect(Book).to receive(:same_author_books)
         

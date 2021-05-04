@@ -33,7 +33,6 @@
       </th>
       <th>More Info</th>
       <th>Find Books With Same Author</th>
-      <th>Show</th>
       <th>Edit</th>
       <th>Delete</th>
       <th colspan="6"></th>
@@ -52,10 +51,9 @@
           <%= link_to "More about #{book.title}", book_path(book) %>
         </td>
         <td>
-           <%= link_to "Find Books With Same Author #{book.author}", book_path(book) %>
+           <%= link_to "Find Books With Same Author #{book.author}", same_author_books_path(book) %>
         </td>
-        <td><%= link_to 'Show', book %></td>
-        <td><%= link_to 'Edit', edit_book_path(book) %></td>
+        <td><%= link_to 'Edit', edit_book_path(book),:class => 'btn btn-success' %></td>
         <td><%= link_to 'Delete', book, method: :delete,:class => 'btn btn-danger',data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

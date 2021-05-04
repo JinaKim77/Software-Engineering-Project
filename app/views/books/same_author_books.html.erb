@@ -13,7 +13,6 @@
       <th>Description</th>
       <th>Publication Date</th>
       <th>More Info</th>
-      <th>Show</th>
       <th>Edit</th>
       <th>Destroy</th>
       <th colspan="6"></th>
@@ -32,9 +31,8 @@
         <td>
           <%= link_to "More about #{book.title}", book_path(book) %>
         </td>
-        <td><%= link_to 'Show', book %></td>
-        <td><%= link_to 'Edit', edit_book_path(book) %></td>
-        <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_book_path(book),:class => 'btn btn-success' %></td>
+        <td><%= link_to 'Destroy', book, method: :delete,:class => 'btn btn-danger', data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -43,3 +41,4 @@
 <br>
 
 <%= link_to 'New Book', new_book_path , :class => 'btn btn-primary col-2'%>
+<%= link_to 'Back to book list', books_path , :class => 'btn btn-primary col-2' %>

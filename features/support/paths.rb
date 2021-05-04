@@ -20,9 +20,10 @@ module NavigationHelpers
         
     when /^the Create New Book page/ then '/books/new'
     when /^the Show Book Details page/ then '/books/1'
-    when /^the Similar Books page for "(.*)"$/
-      same_author_book_path(Book.find_by_title($1))
-
+    when /^the Similar Books page for "(.*)"$/ # then '/books/same_author_books/3'
+      same_author_books_path(Book.find_by_title($1)) 
+        
+    when /^the details page for "(.*)"$/
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

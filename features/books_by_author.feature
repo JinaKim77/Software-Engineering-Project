@@ -25,7 +25,7 @@ Scenario: add author to existing book
 Scenario: find book with same author (happy path)
   Given I am on the details page for "Beyond"
   When  I follow "Find Books With Same Author"
-  Then  I should be on the Similar Movies page for "Beyond"
+  Then  I should be on the Similar Books page for "Beyond"
   And   I should see "Hide and Seek"
   But   I should not see "Sorrow and Bliss"
   
