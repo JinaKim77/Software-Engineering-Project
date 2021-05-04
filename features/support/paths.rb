@@ -13,10 +13,15 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
 
-    when /^the (sweng-project-JinaKim )?home\s?page$/ then '/books'
+    when /^the (Final Project )?home\s?page$/ then '/books'
     when /^the books page$/ then '/books'
+    when /^the edit page for "(.*)"$/
+      edit_book_path(Book.find_by_title($1))
+        
     when /^the Create New Book page/ then '/books/new'
-    when /^the Show Book Details page/ then 'books'
+    when /^the Show Book Details page/ then '/books/1'
+    when /^the Similar Books page for "(.*)"$/
+      same_author_book_path(Book.find_by_title($1))
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

@@ -137,5 +137,28 @@ RSpec.describe BooksController, type: :controller do
       expect(response).to redirect_to(books_url)
     end
   end
+    
+    
+  describe "#author" do
+    context "When specified book has an author" do
+      it "should find books with the same author" do
+        ## YOUR TEST CODE HERE
+        @book_id="1"
+        @movie=double('Beyond', :director =>'Stephen Walker')
+        expect(Book).to receive(:find).and_return(@book)
+        expect(Book).to receive(:same_author_books)
+        
+      end
+    end
+
+    context "When specified book has no author" do
+      it "should redirect to the books page" do
+        @book_id="1"
+        @book = double('Beyond').as_null_object
+        expect(Book).to receive(:find).with(@book_id).and_return(@book)
+
+      end
+    end
+  end
 
 end

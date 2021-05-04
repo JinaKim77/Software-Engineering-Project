@@ -1,7 +1,7 @@
 Feature: User can manually add a book
 
-Scenario: Add a book
-  Given I am on the sweng-project-JinaKim homepage
+Scenario: Add a book (happy path)
+  Given I am on the Final Project homepage
   When I follow "New Book"
   Then I should be on the Create New Book page
   When I fill in "Title" with "Beyond"

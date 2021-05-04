@@ -23,6 +23,9 @@ class BooksController < ApplicationController
       redirect_to :sort => sort, :ratings => @selected_ratings and return
     end
     @books = Book.where(rating: @selected_ratings.keys).order(ordering)
+      
+    #Not sure why...This should be fixed!
+    #@books = Book.all
   end
 
   # GET /books/1
@@ -68,7 +71,7 @@ class BooksController < ApplicationController
   end
     
   def same_author_books
-    @books = Book.same_author_movies(params[:id])
+    @books = Book.same_author_books(params[:id])
   end
 
   private
