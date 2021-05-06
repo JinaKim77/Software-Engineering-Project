@@ -24,8 +24,6 @@ class BooksController < ApplicationController
     end
     @books = Book.where(rating: @selected_ratings.keys).order(ordering)
       
-    #Not sure why...This should be fixed!
-    #@books = Book.all
   end
 
   # GET /books/1
@@ -41,7 +39,7 @@ class BooksController < ApplicationController
 
   # GET /books/1/edit
   def edit
-      @book = Book.find params[:id]
+      #@book = Book.find params[:id]
   end
 
   # POST /books
@@ -74,7 +72,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
       
     if @book.author.nil? || @book.author.empty?
-        flash[:notice] = " '#{@book.title}' has no author info"
+        flash[:notice] = "'#{@book.title}' has no author info"
         redirect_to books_path
     else
         @books = Book.same_author_books(params[:id])
