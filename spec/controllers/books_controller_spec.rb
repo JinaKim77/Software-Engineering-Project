@@ -29,11 +29,13 @@ RSpec.describe BooksController, type: :controller do
   # Book. As you add validations to Book, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    #skip("Add a hash of attributes valid for your model")
+    {:id => 1, :title=>"Beyond", :author=>"Jina Kim", :rating=>5, :Categories=>"Fiction",:description=>"Very good"}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    #skip("Add a hash of attributes invalid for your model")
+    {:id => 1, :title=>"Beyond", :author=>"Jina Kim", :rating=>5, :Categories=>"Fiction",:description=>"Very good"}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -97,14 +99,14 @@ RSpec.describe BooksController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        #skip("Add a hash of attributes valid for your model")
       }
 
       it "updates the requested book" do
         book = Book.create! valid_attributes
         put :update, {:id => book.to_param, :book => new_attributes}, valid_session
         book.reload
-        skip("Add assertions for updated state")
+        #skip("Add assertions for updated state")
       end
 
       it "redirects to the book" do
@@ -145,11 +147,12 @@ RSpec.describe BooksController, type: :controller do
         ## YOUR TEST CODE HERE
         @book_id="1"
         @book=double('Beyond', :director =>'Stephen Walker')
+          
         expect(Book).to receive(:find).and_return(@book)
         expect(Book).to receive(:same_author_books)
-        
+        #post :same_author_books
       end
-    end
+   end
 
     context "When specified book has no author" do
       it "should redirect to the books page" do

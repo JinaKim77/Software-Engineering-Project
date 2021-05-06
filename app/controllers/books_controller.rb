@@ -71,7 +71,14 @@ class BooksController < ApplicationController
   end
     
   def same_author_books
-    @books = Book.same_author_books(params[:id])
+    @book = Book.find(params[:id])
+      
+    if @book.author.nil? || @book.author.empty?
+        flash[:notice] = " '#{@book.title}' has no author info"
+        redirect_to books_path
+    else
+        @books = Book.same_author_books(params[:id])
+    end
   end
 
   private
