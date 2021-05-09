@@ -24,6 +24,7 @@ class BooksController < ApplicationController
     end
     @books = Book.where(rating: @selected_ratings.keys).order(ordering)
       
+    #Book.index(params[:index])
   end
 
   # GET /books/1

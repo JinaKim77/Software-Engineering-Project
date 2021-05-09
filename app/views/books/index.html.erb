@@ -46,7 +46,7 @@
         <td><%= book.rating %></td>
         <td><%= book.Categories %></td>
         <td><%= book.description %></td>
-        <td><%= book.publication_date.strftime("%B %d, %Y") %></td>
+        <td><%= book.publication_date %></td>
         <td>
           <%= link_to "More about #{book.title}", book_path(book) %>
         </td>

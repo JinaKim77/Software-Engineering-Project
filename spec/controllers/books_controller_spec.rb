@@ -30,12 +30,12 @@ RSpec.describe BooksController, type: :controller do
   # adjust the attributes here as well.
   let(:valid_attributes) {
     #skip("Add a hash of attributes valid for your model")
-    {:id => 1, :title=>"Beyond", :author=>"Jina Kim", :rating=>5, :Categories=>"Fiction",:description=>"Very good"}
+    {id: 1, title: "Beyond", author: "Jina Kim", Categories: "Fiction", rating: "5", description: "Very good", publication_date: "06-Feb-2020"}
   }
 
   let(:invalid_attributes) {
     #skip("Add a hash of attributes invalid for your model")
-    {:id => 1, :title=>"Beyond", :author=>"Jina Kim", :rating=>5, :Categories=>"Fiction",:description=>"Very good"}
+    {id: "", title: "", author: "", Categories: "", rating: "", description: "", publication_date: ""}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -60,7 +60,7 @@ RSpec.describe BooksController, type: :controller do
   end
 
   describe "GET #new" do
-    it "returns a success response" do
+    it "render the new template" do
       get :new, {}, valid_session
       expect(response).to be_success
     end
@@ -70,7 +70,7 @@ RSpec.describe BooksController, type: :controller do
     it "returns a success response" do
       book = Book.create! valid_attributes
       get :edit, {:id => book.to_param}, valid_session
-      expect(response).to be_success
+      expect(response).to render_template(:edit)
     end
   end
 
@@ -83,15 +83,18 @@ RSpec.describe BooksController, type: :controller do
       end
 
       it "redirects to the created book" do
+        @book_id = 1
         post :create, {:book => valid_attributes}, valid_session
-        expect(response).to redirect_to(Book.last)
+        get :show, :id => @book_id
+        expect(response).to render_template(:show)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, {:book => invalid_attributes}, valid_session
-        expect(response).to be_success
+        get :new
+        expect(response).to render_template(:new)
       end
     end
   end
@@ -100,6 +103,7 @@ RSpec.describe BooksController, type: :controller do
     context "with valid params" do
       let(:new_attributes) {
         #skip("Add a hash of attributes valid for your model")
+        {id: 1, title: "Beyond", author: "Jina Kim", Categories: "Fiction", rating: "5",description: "Very good", publication_date: "06-Feb-2020"}
       }
 
       it "updates the requested book" do
@@ -120,7 +124,7 @@ RSpec.describe BooksController, type: :controller do
       it "returns a success response (i.e. to display the 'edit' template)" do
         book = Book.create! valid_attributes
         put :update, {:id => book.to_param, :book => invalid_attributes}, valid_session
-        expect(response).to be_success
+        expect(response).to redirect_to(book)
       end
     end
   end
@@ -141,24 +145,28 @@ RSpec.describe BooksController, type: :controller do
   end
     
     
-  describe "#author" do
+  describe "#same_author_books" do
     context "When specified book has an author" do
       it "should find books with the same author" do
         ## YOUR TEST CODE HERE
         @book_id="1"
-        @book=double('Beyond', :director =>'Stephen Walker')
+        @book=double('Beyond', author: 'Stephen Walker')
           
         expect(Book).to receive(:find).and_return(@book)
         expect(Book).to receive(:same_author_books)
         #post :same_author_books
+        get :same_author_books, id: @book_id
+        expect(response).to render_template(:same_author_books)
       end
    end
 
     context "When specified book has no author" do
       it "should redirect to the books page" do
         @book_id="1"
-        @book = double('Beyond').as_null_object
+        @book = double('null book').as_null_object
         expect(Book).to receive(:find).with(@book_id).and_return(@book)
+        get :same_author_books, id: @book_id
+        expect(response).to redirect_to(books_path)
 
       end
     end
