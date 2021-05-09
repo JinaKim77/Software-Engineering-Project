@@ -16,7 +16,6 @@ Background: books have been added to database
   | Good Morning     | 5      |                | 16-Nov-2001      |
   
   And I am on the Final Project home page
-  #Then 6 seed books should exist
   
   Scenario: sort books alphabetically
   When I follow "Book Title" 
