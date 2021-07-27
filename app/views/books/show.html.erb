@@ -1,0 +1,44 @@
+<%= stylesheet_link_tag "application", :media => "all" %>
+<p id="notice"><%= notice %></p>
+
+<h2>Details about <em><%= @book.title %></em></h2>
+<br>
+<ul id="details">
+    
+<li>
+  <strong>Title:</strong>
+  <%= @book.title %>
+</li>
+
+<li>
+  <strong>Author:</strong>
+  <%= @book.author %>
+</li>
+
+<li>
+  <strong>Rating:</strong>
+  <%= @book.rating %>
+</li>
+
+<li>
+  <strong>Categories:</strong>
+  <%= @book.Categories %>
+</li>
+
+
+<li>
+  <strong>Publication Date:</strong>
+  <%= @book.publication_date %>
+</li>
+   
+</ul>
+
+<h3>Description:</h3>
+<p id="description">
+  <%= @book.description %>
+</p>
+
+<%= link_to 'Edit', edit_book_path(@book) , :class => 'btn btn-primary col-2' %> |
+<%= link_to 'Delete', book_path(@book), 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col-2' %>
+<%= link_to 'Back to book list', books_path , :class => 'btn btn-primary col-2'%>
+<%= link_to 'Find Books With Same Author',  same_author_books_path(@book), :class => 'btn btn-primary' %>

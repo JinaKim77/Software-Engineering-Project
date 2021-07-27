@@ -1,0 +1,65 @@
+<p id="notice"><%= notice %></p>
+<%= stylesheet_link_tag "application", :media => "all" %>
+
+<h1>READING CHALLENGE</h1>
+
+<h2>All Books</h2>
+
+<%= form_tag books_path, method: :get, id: 'ratings_form' do %>
+  <%= hidden_field_tag "title_sort", true if @title_header %>
+  <%= hidden_field_tag ":publication_date_sort", true if @date_header %>
+  Include :
+  <% @all_ratings.each do |rating| %>
+    <div class="form-check  form-check-inline">
+      <%= rating %>
+      <%= check_box_tag "ratings[#{rating}]", "1",  @selected_ratings.include?(rating),  :id => "ratings_#{rating}" %>
+    </div>
+  <% end %>
+  <%= submit_tag 'Refresh', id: 'ratings_submit', class: 'btn btn-primary col-2' %>
+<% end %>
+
+<table class="styled-table center" id="books">
+  <thead>
+    <tr>
+      <th>
+        <%= link_to 'Book Title', books_path(:sort => 'title', :ratings => @selected_ratings), :id => 'title_header',:class => @title_header %>
+      </th>
+      <th>Author</th>
+      <th>Rating</th>
+      <th>Categories</th>
+      <th>Description</th>
+      <th>
+        <%= link_to 'Publication Date', books_path(:sort => 'publication_date', :ratings => @selected_ratings), :id => 'publication_date_header',:class => @date_header %>
+      </th>
+      <th>More Info</th>
+      <th>Find Books With Same Author</th>
+      <th>Edit</th>
+      <th>Delete</th>
+      <th colspan="6"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= book.title %></td>
+        <td><%= book.author %></td>
+        <td><%= book.rating %></td>
+        <td><%= book.Categories %></td>
+        <td><%= book.description %></td>
+        <td><%= book.publication_date %></td>
+        <td>
+          <%= link_to "More about #{book.title}", book_path(book) %>
+        </td>
+        <td>
+           <%= link_to "Find Books With Same Author #{book.author}", same_author_books_path(book) %>
+        </td>
+        <td><%= link_to 'Edit', edit_book_path(book),:class => 'btn btn-success' %></td>
+        <td><%= link_to 'Delete', book, method: :delete,:class => 'btn btn-danger',data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Book', new_book_path , :class => 'btn btn-primary col-2'%>
